@@ -49,6 +49,8 @@ class Ball:
         if pos[3] >= self.canvas_height:
             self.hit_bottom = True
             canvas.create_text(250, 120, text='Вы проиграли', font=('Courier', 30), fill='red')
+            pygame.mixer.music.stop()  
+            
         if self.hit_paddle(pos) == True:
             self.y = -2
         if pos[0] <= 0:
@@ -98,6 +100,7 @@ class Score:
  
     def hit(self):
         self.score += 1
+        jump.play()
         self.canvas.itemconfig(self.id, text=self.score)
 
 def real_playsound () :
@@ -115,15 +118,19 @@ pygame.init()
 pygame.mixer.music.load('C:/Users/vitas/Desktop/Ucheba/YaProg/pingpung/1.mp3')
 pygame.mixer.music.set_volume(0.4)
 
+jump = pygame.mixer.Sound('C:/Users/vitas/Desktop/Ucheba/YaProg/pingpung/Jump.wav')
+
 score = Score(canvas, 'Black')
 paddle = Paddle(canvas, 'White')
 ball = Ball(canvas, paddle, score, 'red')
-
-pygame.mixer.music.play(loops=-1)
-while 1:
+def main():
     if ball.hit_bottom == False and paddle.started == True:
         ball.draw()
         paddle.draw()
     tk.update_idletasks()
     tk.update()
     time.sleep(0.01)
+
+pygame.mixer.music.play(loops=-1)
+while 1:
+    main()
