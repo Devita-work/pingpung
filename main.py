@@ -6,13 +6,16 @@ from playsound import playsound
 from PIL import ImageTk, Image
 import pyglet
 import pygame
+from os.path import abspath, dirname
+
+BASE_PATH = abspath(dirname(__file__))
  
 tk = Tk()
 tk.title('Game')
 tk.resizable(0, 0)
 tk.wm_attributes('-topmost', 1)
 canvas = Canvas(tk, width=500, height=400, highlightthickness=0)
-Image=ImageTk.PhotoImage(Image.open("C:/Users/vitas/Desktop/Ucheba/YaProg/pingpung/bg.jpg"))
+Image=ImageTk.PhotoImage(Image.open(BASE_PATH + '/bg.jpg'))
 my_image = Image
 canvas.create_image(0, 0, anchor=NW, image=my_image)
 canvas.pack()
@@ -104,7 +107,7 @@ class Score:
         self.canvas.itemconfig(self.id, text=self.score)
 
 def real_playsound () :
-    sound = pyglet.media.load('C:/Users/vitas/Desktop/Ucheba/YaProg/pingpung/1.mp3')
+    sound = pyglet.media.load(BASE_PATH + '/1.mp3')
     sound.play()
     pyglet.app.run()
 
@@ -115,10 +118,10 @@ def pplaysound():
  
 pygame.init()
 
-pygame.mixer.music.load('C:/Users/vitas/Desktop/Ucheba/YaProg/pingpung/1.mp3')
+pygame.mixer.music.load(BASE_PATH + '/1.mp3')
 pygame.mixer.music.set_volume(0.4)
 
-jump = pygame.mixer.Sound('C:/Users/vitas/Desktop/Ucheba/YaProg/pingpung/Jump.wav')
+jump = pygame.mixer.Sound(BASE_PATH + '/Jump.wav')
 
 score = Score(canvas, 'Black')
 paddle = Paddle(canvas, 'White')
